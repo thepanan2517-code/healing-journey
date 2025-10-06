@@ -1,0 +1,468 @@
+/* Minimal, calm design focused on breathing space */
+:root{
+  --bg:#0b1020;
+  --card:#10172a;
+  --text:#ecf2ff;
+  --muted:#a9b0c4;
+  --accent:#7dd3fc;
+  --accent2:#a7f3d0;
+  --border:#1f2940;
+  --focus:#facc15;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Noto Sans Thai', 'Noto Sans', Segoe UI, Roboto, sans-serif;
+  color:var(--text);
+  background: radial-gradient(1200px 800px at 10% 10%, #14223a 0%, #0b1020 60%);
+  display:flex; flex-direction:column;
+}
+
+.app{flex:1; display:grid; place-items:center; padding:24px}
+.scene{
+  width:min(860px, 92vw);
+  min-height:60vh;
+  background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:24px;
+  box-shadow:0 40px 80px rgba(0,0,0,.35);
+  display:grid; gap:16px;
+  align-content:start;
+}
+.scene {
+  background-size: contain;      /* ให้เห็นภาพเต็มทั้งหมด */
+  background-position: center;   /* จัดให้อยู่ตรงกลาง */
+  background-repeat: no-repeat;  /* ไม่ให้ภาพซ้ำ */
+  background-color: #000;        /* พื้นหลังดำรองรับภาพ ถ้าไม่เต็มจอ */
+  min-height: 100vh;             /* ให้ครอบเต็มความสูงหน้าจอ */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;       /* จัดให้อยู่กลางแนวตั้ง */
+  align-items: center;           /* จัดให้อยู่กลางแนวนอน */
+  text-align: center;
+}
+
+h1,h2,h3{margin:0 0 8px 0; line-height:1.2}
+p{margin:0 0 10px 0; color:var(--muted)}
+
+.footer{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 18px; gap:12px;
+  border-top:1px solid var(--border);
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+}
+button{
+  border:1px solid var(--border);
+  background:#121a30; color:var(--text); padding:10px 14px; border-radius:12px;
+  cursor:pointer;
+}
+button.primary{background:var(--accent); color:#06223a; font-weight:700}
+button.ghost{background:transparent}
+button:disabled{opacity:.5; cursor:not-allowed}
+button:focus{outline:2px solid var(--focus); outline-offset:2px}
+
+.row{display:flex; flex-wrap:wrap; gap:10px}
+.input{
+  display:flex; align-items:center; gap:10px;
+  background:#0e1529; border:1px solid var(--border); border-radius:12px; padding:10px 12px;
+}
+.input input, .input textarea, .input select{
+  background:transparent; color:var(--text); border:none; outline:none; width:100%;
+  font:inherit; resize:vertical;
+}
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:4px}
+.chip{
+  padding:8px 12px; border-radius:999px; border:1px solid var(--border);
+  background:#0e1529; color:var(--muted); cursor:pointer;
+}
+.chip.active{background:linear-gradient(90deg, var(--accent), var(--accent2)); color:#051a2f; border-color:transparent; font-weight:700}
+
+.panel{
+  border:1px solid var(--border); border-radius:14px; padding:14px; background:#0c1327;
+}
+
+.note{font-size:.9rem; color:var(--muted)}
+
+.dots{display:flex; gap:6px}
+.dot{width:8px; height:8px; border-radius:999px; background:#26324d}
+.dot.active{background:linear-gradient(90deg, var(--accent), var(--accent2))}
+
+.center{display:grid; place-items:center; text-align:center}
+.big{font-size:2.1rem}
+.caption{font-size:.95rem; color:var(--muted)}
+
+.breathe{
+  --size: 140px;
+  width:var(--size); height:var(--size);
+  border-radius:999px; border:2px solid var(--accent);
+  box-shadow:0 0 50px rgba(125, 211, 252, .25);
+  animation: breathe 7s ease-in-out infinite;
+}
+@keyframes breathe{
+  0%{ transform: scale(0.85) }
+  40%{ transform: scale(1.05) }
+  100%{ transform: scale(0.85) }
+}
+
+.list{display:grid; gap:10px}
+.list .item{display:flex; gap:10px; align-items:flex-start}
+.step{width:28px; height:28px; border-radius:8px; display:grid; place-items:center; font-weight:700; background:#14223a; border:1px solid var(--border)}
+
+.journal{min-height:120px}
+.success{color:#b7f7d7}
+.warning{color:#ffb4b4}
+/* ฟุ้งนุ่มตอนเปลี่ยนฉาก */
+.fade-in { animation: fadeIn .6s ease both }
+@keyframes fadeIn { from {opacity:0; transform:translateY(6px)} to {opacity:1; transform:translateY(0)} }
+
+/* การ์ด/ปุ่มลอยขึ้นลงเบาๆ */
+.floaty { animation: floatY 4s ease-in-out infinite }
+@keyframes floatY { 0%{transform:translateY(0)} 50%{transform:translateY(-6px)} 100%{transform:translateY(0)} }
+
+/* Ken Burns: ซูมช้าๆ สำหรับภาพพื้นหลัง */
+.kenburns { animation: ken 18s ease-in-out infinite; }
+@keyframes ken {
+  0% { background-size: 105% auto; background-position: center 55%; }
+  50% { background-size: 110% auto; background-position: center 50%; }
+  100% { background-size: 105% auto; background-position: center 55%; }
+}
+
+/* เคารพผู้ใช้ที่ไม่อยากเห็นแอนิเมชัน */
+@media (prefers-reduced-motion: reduce){
+  .fade-in, .floaty, .kenburns, .breathe { animation: none !important }
+}
+.start-btn {
+  background: rgba(255, 255, 255, 0.85);
+  color: #222;
+  font-size: 1.8rem;
+  padding: 16px 36px;
+  border: none;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .3);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.start-btn:hover {
+  transform: scale(1.05);
+  background: #fff;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, .4);
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+/* โครงเล่าเรื่องกลางฉาก */
+.narrate-wrap{
+  position: relative;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 12px; padding: 24px;
+}
+
+.bubble{
+  max-width: min(820px, 90vw);
+  background: rgba(255,255,255,.92);
+  color: #111;
+  border-radius: 24px;
+  padding: 22px 26px;
+  box-shadow: 0 18px 44px rgba(0,0,0,.35);
+  text-align: center;
+  line-height: 1.55;
+  font-size: clamp(18px, 2.2vw, 28px);
+  backdrop-filter: blur(6px);
+}
+
+.tap-hint{
+  font-size: 14px;
+  color: #fff; opacity: .7;
+  text-shadow: 0 2px 8px rgba(0,0,0,.5);
+}
+/* --- ปรับ layout ของฉาก narrate --- */
+.scene.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end; /* ให้อยู่ด้านล่าง */
+  min-height: 100%;
+  padding-bottom: 60px; /* เว้นที่จากขอบล่างนิดหน่อย */
+}
+
+.narrate-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.bubble {
+  background: rgba(255, 255, 255, 0.9);
+  color: #222;
+  border-radius: 20px;
+  padding: 18px 25px;
+  max-width: 700px;
+  line-height: 1.7;
+  font-size: 1.1rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(3px);
+}
+
+/* แอนิเมชันฟองคำพูดค่อยๆ ปรากฏ */
+.bubble {
+  opacity: 0;
+  transform: translateY(15px);
+  animation: bubbleFade 0.6s ease-out forwards;
+}
+
+@keyframes bubbleFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tap-hint {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+/* ===== ปรับให้อ่านง่ายขึ้นบนภาพพื้นหลัง ===== */
+.scene h2,
+.scene p,
+.scene .question {
+  color: #fff; /* เปลี่ยนเป็นขาว */
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6); /* เงาเบาๆ เพื่อให้อ่านออกบนพื้นสว่าง */
+}
+.scene::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.35); /* ความมืดจางๆ */
+  backdrop-filter: blur(1px); /* เบลอนิดหน่อยให้นุ่ม */
+  z-index: 0;
+}
+
+.scene > * {
+  position: relative;
+  z-index: 1; /* ให้ข้อความอยู่เหนือ overlay */
+}
+/* ===== ปรับสไตล์กล่องตัวเลือกคำตอบให้ดูนุ่มและชัดขึ้น ===== */
+button.choice {
+  background: rgba(20, 20, 30, 0.75); /* พื้นหลังโปร่งใสมืดนิดๆ */
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* ขอบบางๆ */
+  border-radius: 10px;
+  padding: 10px 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* เงาเบาๆ ให้ลอยขึ้น */
+  transition: all 0.25s ease;
+}
+
+/* เมื่อเอาเมาส์ชี้หรือแตะ */
+button.choice:hover,
+button.choice:focus {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.04);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+}
+
+/* เมื่อถูกเลือก */
+button.choice.active {
+  background: linear-gradient(135deg, #4bb0ff, #6be6c1);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 0 14px rgba(75, 176, 255, 0.6);
+}
+/* === เข้าแบบลอยขึ้น (fade + slide up) === */
+@keyframes floatUpIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)     scale(1);    }
+}
+
+/* ใช้กับคอนเทนต์คำถามทั้งหมด */
+.question-wrap.float-in {
+  animation: floatUpIn .55s ease both;
+}
+
+/* ใช้กับปุ่มตัวเลือก ให้ลอยขึ้นแบบไล่ดีเลย์ */
+button.choice.float-in {
+  animation: floatUpIn .5s ease both;
+}
+
+/* เติมลูกเล่นลอยเบา ๆ หลังปรากฏ (optional) */
+@keyframes bobSoft {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-3px); }
+}
+button.choice.appear-done {
+  animation: bobSoft 3.2s ease-in-out .5s infinite;
+}
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.exercise-wrap {
+  display: grid;
+  gap: 18px;
+  place-items: center;
+  min-height: 60vh;
+  padding: 16px;
+}
+
+.exercise-wrap .bubble {
+  max-width: min(760px, 92vw);
+}
+
+.timer {
+  display: grid;
+  place-items: center;
+  gap: 6px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.9);
+  color: #111;
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  backdrop-filter: blur(2px);
+}
+
+.timer-num {
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 1;
+  transform: translateZ(0);
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+.timer-num.pop {
+  transform: scale(1.12);
+}
+
+.timer-sub {
+  font-size: .95rem;
+  opacity: .7;
+}
+
+/* ใช้ซ้ำกับฉากก่อนหน้าได้ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp .9s ease forwards;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.bubble, .panel, .note, .list, h2, p {
+  background: rgba(0, 0, 0, 0.4); /* พื้นหลังดำโปร่ง */
+  color: #fff;                     /* ตัวอักษรขาว */
+  backdrop-filter: blur(3px);      /* ทำให้เบลอเล็กน้อย */
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+h1, h2, p {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+.scene.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35); /* ปรับความเข้มได้ */
+  z-index: 0;
+}
+
+.scene.hero > * {
+  position: relative;
+  z-index: 1;
+}
+/* กล่องข้อความอ่านง่าย */
+.bubble {
+  max-width: min(760px, 92vw);
+  margin: 8px auto;
+  padding: 18px 22px;
+  border-radius: 16px;
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  line-height: 1.7;
+  box-shadow: 0 10px 28px rgba(0,0,0,.25);
+  backdrop-filter: blur(2px);
+}
+.bubble.small { font-size: 1rem; opacity: .95; }
+
+.q-title { text-align:center; color:#fff; margin: 8px 0 12px; }
+.q-choices { display: grid; gap: 10px; }
+.q-btn {
+  display:block; width:100%;
+  padding: 12px 14px; border-radius: 12px; border: 0;
+  background: rgba(255,255,255,.9); color:#111;
+  font-size: 1rem;
+}
+.q-btn:active { transform: translateY(1px); }
+
+.big-timer { font-size: 48px; font-weight: 700; }
+
+/* animation เลื่อนนุ่ม ๆ */
+.fade-in    { animation: fade .6s ease both; }
+.fade-in-up { animation: up   .6s ease both; }
+@keyframes fade { from{opacity:0} to{opacity:1} }
+@keyframes up   { from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:none} }
+/* --- Bird Result Card --- */
+.bird-card {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 16px;
+  align-items: center;
+  max-width: min(780px, 92vw);
+  margin: 10px auto 0;
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(3px);
+  box-shadow: 0 10px 28px rgba(0,0,0,.25);
+}
+
+@media (max-width: 560px) {
+  .bird-card { grid-template-columns: 1fr; text-align: center; }
+}
+
+.bird-img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.35);
+  animation: birdDrop .7s ease both;
+}
+
+@keyframes birdDrop {
+  from { opacity: 0; transform: translateY(-14px) scale(.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.bird-info .big { margin: 6px 0 4px; }
+.bird-info .note { color: #eee; line-height: 1.7; }
