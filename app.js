@@ -30,7 +30,7 @@
   scores: JSON.parse(localStorage.getItem('hj_scores') || '{"budgie":0,"dove":0,"owl":0,"hornbill":0,"eagle":0}')
 };
 // ===== Background Music =====
-const bgm = new Audio('assets/audio/bgm.mp3');
+const bgm = new Audio('assets/bgm.mp3');
 bgm.loop = true;
 bgm.volume = 0.7; // ปรับความดังได้
 let bgmStarted = false;
