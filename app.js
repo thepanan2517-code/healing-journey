@@ -30,9 +30,10 @@
   scores: JSON.parse(localStorage.getItem('hj_scores') || '{"budgie":0,"dove":0,"owl":0,"hornbill":0,"eagle":0}')
 };
 // ===== Background Music =====
-const bgm = new Audio('assets/bgm.mp3');
+const bgm = new Audio('assets/bgm.mp3?v=' + Date.now()); // กันแคช
+bgm.preload = 'auto';    // บอกให้โหลดล่วงหน้า
 bgm.loop = true;
-bgm.volume = 0.7; // ปรับความดังได้
+bgm.volume = 0.7;
 let bgmStarted = false;
 
 // เปิดเพลงหลังจากผู้ใช้กด "เริ่มเดินทาง"
